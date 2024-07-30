@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 const URL = "https://api.spacexdata.com/v3/rockets";
 
 export type rocketType = {
-    id: number;
+    id: string;
     name: string;
-    description: string;
+    imageUrl: string;
+    firstFlightDate: string;
+    country: string;
+    active: boolean;
 };
 
 const useRockets = () => {
@@ -13,9 +16,12 @@ const useRockets = () => {
     // get id, rocket_name, description
     function filterRocketsInfo(data: any[]): rocketType[] {
         return data.map((rocket) => ({
-            id: Number(rocket.id),
+            id: String(rocket.rocket_id),
             name: String(rocket.rocket_name),
-            description: String(rocket.description),
+            country: String(rocket.country),
+            imageUrl: String(rocket.flickr_images[0]),
+            firstFlightDate: String(rocket.first_flight),
+            active: Boolean(rocket.active),
         }));
     }
     useEffect(() => {
@@ -27,6 +33,7 @@ const useRockets = () => {
                 }
                 const data = await response.json();
                 const filteredData = filterRocketsInfo(data);
+                console.log(filteredData);
                 setRockets(filteredData);
             } catch (err) {
                 console.error(err);

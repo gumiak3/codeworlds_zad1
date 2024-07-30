@@ -5,13 +5,17 @@ import RocketSnippet from "./RocketSnippet";
 export default function RocketsContainer() {
     const [rockets] = useRockets();
     return (
-        <section>
+        <section className="m-auto max-w-screen-sm ">
             {rockets &&
                 rockets.map((rocket) => (
                     <RocketSnippet
                         key={rocket.id}
+                        id={rocket.id}
                         title={rocket.name}
-                        description={rocket.description}
+                        imageUrl={rocket.imageUrl}
+                        active={rocket.active}
+                        firstFlightDate={rocket.firstFlightDate}
+                        country={rocket.country}
                     />
                 ))}
         </section>
