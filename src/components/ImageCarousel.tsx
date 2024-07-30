@@ -10,18 +10,10 @@ interface IImageCarousel {
 export default function ImageCarousel({ images, className }: IImageCarousel) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     function handleLeftSlide() {
-        if (currentIndex === 0) {
-            setCurrentIndex(images.length - 1);
-        } else {
-            setCurrentIndex((prev) => prev - 1);
-        }
+        setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
     }
     function handleRightSlide() {
-        if (currentIndex === images.length - 1) {
-            setCurrentIndex(0);
-        } else {
-            setCurrentIndex((prev) => prev + 1);
-        }
+        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     }
     return (
         <div className="relative select-none">
@@ -38,7 +30,11 @@ export default function ImageCarousel({ images, className }: IImageCarousel) {
                 />
             </div>
 
-            <img src={images[currentIndex]} className="rounded-md h-72 w-96" />
+            <img
+                src={images[currentIndex]}
+                className="rounded-md h-72 w-96"
+                alt={"image carousel"}
+            />
         </div>
     );
 }
