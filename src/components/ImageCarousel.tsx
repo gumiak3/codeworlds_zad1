@@ -32,7 +32,7 @@ export default function ImageCarousel({ images, className }: IImageCarousel) {
 
             <img
                 src={images[currentIndex]}
-                className="rounded-md h-72 w-96"
+                className="rounded-md"
                 alt={"image carousel"}
             />
         </div>

@@ -45,7 +45,7 @@ export default function RocketDetail() {
         fetchRocket();
     }, []);
     return (
-        <section className="max-w-screen-lg m-auto ">
+        <section className="max-w-screen-xl m-auto ">
             {details && (
                 <div className="grid gap-4 grid-cols-1 md:grid-cols-5 ">
                     <div className="col-span-2 flex justify-center">
