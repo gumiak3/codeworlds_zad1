@@ -1,9 +1,9 @@
-import RocketsContainer from "../components/rockets/RocketsContainer";
+import RocketsContainer from '../components/rockets/RocketsContainer';
 
 export default function Home() {
-    return (
-        <section>
-            <RocketsContainer />
-        </section>
-    );
+  return (
+    <section>
+      <RocketsContainer />
+    </section>
+  );
 }
