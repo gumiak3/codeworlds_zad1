@@ -11,7 +11,7 @@ export type RocketDetailType = {
   active: boolean;
   country: string;
   description: string;
-  firstFlight: string;
+  firstFlightDate: string;
   images: string[];
   name: string;
 };

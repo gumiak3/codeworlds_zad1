@@ -2,6 +2,7 @@ interface IRocketSnippetDetails {
   label: string;
   detail: string | boolean;
 }
+
 export default function RocketSnippetDetail({
   detail,
   label,

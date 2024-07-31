@@ -20,7 +20,7 @@ export default function RocketsContainer() {
         <RocketSnippet
           key={rocket.id}
           id={rocket.id}
-          title={rocket.name}
+          name={rocket.name}
           imageUrl={rocket.imageUrl}
           active={rocket.active}
           firstFlightDate={rocket.firstFlightDate}

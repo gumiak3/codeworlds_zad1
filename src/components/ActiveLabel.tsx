@@ -1,6 +1,7 @@
 interface IActiveLabel {
   isActive: boolean;
 }
+
 export default function ActiveLabel({ isActive }: IActiveLabel) {
   return (
     <div>

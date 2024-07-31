@@ -54,7 +54,7 @@ export default function RocketDetail() {
             <RocketSnippetDetail label="Country" detail={data.country} />
             <RocketSnippetDetail
               label="First Flight"
-              detail={data.firstFlight}
+              detail={data.firstFlightDate}
             />
             <div>
               <p>Description: </p>
