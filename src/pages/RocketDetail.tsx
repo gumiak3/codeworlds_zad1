@@ -1,24 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
 import ActiveLabel from '../components/ActiveLabel';
+import ErrorMessage from '../components/ErrorMessage';
 import ImageCarousel from '../components/ImageCarousel';
+import LoadingCircle from '../components/LoadingCircle';
 import RocketSnippetDetail from '../components/rockets/RocketSnippetDetail';
-
-type rocketDetailType = {
-  active: boolean;
-  country: string;
-  description: string;
-  firstFlight: string;
-  images: string[];
-  name: string;
-};
+import { RocketDetailType } from '../types/rocketTypes';
 
 export default function RocketDetail() {
   const { id } = useParams();
-  const [details, setDetails] = useState<rocketDetailType>();
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['rocketDetails', id],
+    queryFn: () => fetchRocket(),
+  });
 
-  function filterData(data: any): rocketDetailType {
+  function filterData(data: any): RocketDetailType {
     return {
       firstFlight: data.first_flight,
       images: data.flickr_images,
@@ -27,42 +24,41 @@ export default function RocketDetail() {
     };
   }
 
-  useEffect(() => {
-    async function fetchRocket() {
-      try {
-        const response = await fetch(
-          `https://api.spacexdata.com/v3/rockets/${id}`,
-        );
-        if (!response.ok) {
-          throw new Error(`Couldn't fetch data from API`);
-        }
-        const data = await response.json();
-        console.log(data);
-        setDetails(filterData(data));
-      } catch (err) {
-        console.error(err);
-      }
+  async function fetchRocket(): Promise<RocketDetailType> {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}`);
+    if (!response.ok) {
+      throw new Error(`Couldn't fetch data from API`);
     }
-    fetchRocket();
-  }, []);
+    const data = await response.json();
+    return filterData(data);
+  }
+
+  if (error) {
+    return <ErrorMessage message={error.message} />;
+  }
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <section className="max-w-screen-xl m-auto ">
-      {details && (
+      {data && (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-5 ">
           <div className="col-span-2 flex justify-center">
-            <ImageCarousel images={details.images} />
+            <ImageCarousel images={data.images} />
           </div>
           <div className="col-span-3 flex flex-col gap-2">
-            <h1 className="underline text-center">{details.name}</h1>
-            <ActiveLabel isActive={details.active} />
-            <RocketSnippetDetail label={'Country'} detail={details.country} />
+            <h1 className="underline text-center">{data.name}</h1>
+            <ActiveLabel isActive={data.active} />
+            <RocketSnippetDetail label="Country" detail={data.country} />
             <RocketSnippetDetail
-              label={'First Flight'}
-              detail={details.firstFlight}
+              label="First Flight"
+              detail={data.firstFlight}
             />
             <div>
               <p>Description: </p>
-              <p>{details.description}</p>
+              <p>{data.description}</p>
             </div>
           </div>
         </div>

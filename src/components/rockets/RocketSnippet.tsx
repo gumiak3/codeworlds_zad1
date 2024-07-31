@@ -29,13 +29,10 @@ export default function RocketSnippet({
         </div>
         <div className="text-center col-span-3">
           {/* small details */}
-          <RocketSnippetDetail label={'Title'} detail={title} />
-          <RocketSnippetDetail label={'Country'} detail={country} />
-          <RocketSnippetDetail
-            label={'First flight'}
-            detail={firstFlightDate}
-          />
-          <RocketSnippetDetail label={'Active'} detail={active} />
+          <RocketSnippetDetail label="Title" detail={title} />
+          <RocketSnippetDetail label="Country" detail={country} />
+          <RocketSnippetDetail label="First flight" detail={firstFlightDate} />
+          <RocketSnippetDetail label="Active" detail={active} />
         </div>
       </Link>
     </article>

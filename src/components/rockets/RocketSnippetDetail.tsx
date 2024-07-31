@@ -9,7 +9,7 @@ export default function RocketSnippetDetail({
   return (
     <div>
       <div className="flex gap-2 text-left">
-        <p className="">{label}:</p>
+        <p>{label}:</p>
         <p className="text-gray-300">{String(detail)}</p>
       </div>
     </div>

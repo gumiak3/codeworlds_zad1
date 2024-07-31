@@ -9,12 +9,15 @@ interface IImageCarousel {
 
 export default function ImageCarousel({ images, className }: IImageCarousel) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   function handleLeftSlide() {
     setCurrentIndex(prev => (prev === 0 ? images.length - 1 : prev - 1));
   }
+
   function handleRightSlide() {
     setCurrentIndex(prev => (prev === images.length - 1 ? 0 : prev + 1));
   }
+
   return (
     <div className="relative select-none">
       <div className="w-full h-full absolute text-3xl flex justify-between items-center">

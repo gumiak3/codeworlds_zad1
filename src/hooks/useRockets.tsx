@@ -1,20 +1,13 @@
-import { useEffect, useState } from 'react';
-const URL = 'https://api.spacexdata.com/v3/rockets';
-
-export type rocketType = {
-  id: string;
-  name: string;
-  imageUrl: string;
-  firstFlightDate: string;
-  country: string;
-  active: boolean;
-};
+import { useQuery } from '@tanstack/react-query';
+import { RocketType } from '../types/rocketTypes';
 
 const useRockets = () => {
-  const [rockets, setRockets] = useState<rocketType[]>();
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['rockets'],
+    queryFn: () => fetchRockets(import.meta.env.VITE_API_URL),
+  });
 
-  // get id, rocket_name, description
-  function filterRocketsInfo(data: any[]): rocketType[] {
+  function filterRocketsInfo(data: any[]): RocketType[] {
     return data.map(rocket => ({
       id: String(rocket.rocket_id),
       name: String(rocket.rocket_name),
@@ -24,25 +17,16 @@ const useRockets = () => {
       active: Boolean(rocket.active),
     }));
   }
-  useEffect(() => {
-    async function fetchRockets(url: string) {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Couldn't fetch data from API`);
-        }
-        const data = await response.json();
-        const filteredData = filterRocketsInfo(data);
-        console.log(filteredData);
-        setRockets(filteredData);
-      } catch (err) {
-        console.error(err);
-      }
+  async function fetchRockets(url: string): Promise<RocketType[]> {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Couldn't fetch data from API`);
     }
-    fetchRockets(URL);
-  }, []);
+    const data = await response.json();
+    return filterRocketsInfo(data);
+  }
 
-  return [rockets];
+  return { data, error, isLoading };
 };
 
 export default useRockets;
