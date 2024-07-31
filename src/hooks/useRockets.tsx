@@ -40,7 +40,7 @@ const useRockets = () => {
       }
     }
     fetchRockets(URL);
-  }, [URL]);
+  }, []);
 
   return [rockets];
 };

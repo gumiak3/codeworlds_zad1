@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import RocketSnippetDetail from '../components/rockets/RocketSnippetDetail';
-import ImageCarousel from '../components/ImageCarousel';
+
 import ActiveLabel from '../components/ActiveLabel';
+import ImageCarousel from '../components/ImageCarousel';
+import RocketSnippetDetail from '../components/rockets/RocketSnippetDetail';
 
 type rocketDetailType = {
   active: boolean;

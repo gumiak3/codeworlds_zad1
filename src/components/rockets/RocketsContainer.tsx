@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import useRockets, { rocketType } from '../../hooks/useRockets';
+import useRockets from '../../hooks/useRockets';
 import RocketSnippet from './RocketSnippet';
 
 export default function RocketsContainer() {
